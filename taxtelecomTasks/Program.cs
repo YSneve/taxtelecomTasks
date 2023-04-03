@@ -14,8 +14,11 @@ internal class Program
 
         if (IsAllLower(inputStr))
         {
-            Console.WriteLine("Результат: {0}", FirstTaskReverse(inputStr));
-            LettersMatches(inputStr);
+            var processedString = FirstTaskReverse(inputStr);
+
+            Console.WriteLine("Результат: {0}", processedString);
+
+            LettersMatches(processedString);
         }
         else
         {
