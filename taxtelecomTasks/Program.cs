@@ -13,7 +13,10 @@ internal class Program
 
 
         if (IsAllLower(inputStr))
+        {
             Console.WriteLine("Результат: {0}", FirstTaskReverse(inputStr));
+            LettersMatches(inputStr);
+        }
         else
         {
             WriteErrors(inputStr);
@@ -55,7 +58,7 @@ internal class Program
         return lowLetExpr.IsMatch(checkString);
     }
 
-    //Задание 3
+    
     private static void WriteErrors(string inString)
     {
         //Регулярное выражение, проверяющее на то, что ряд символов
@@ -70,11 +73,21 @@ internal class Program
 
         Console.WriteLine("Ошибка! Введены не подходящие символы." +
                           "\nСледующие, из введенных символов, не являются подходящими:" +
-                          "\nСимвол; Кол-во повторений");
-        foreach (var wrongLetter in wrongLettersSet)
+                          "\n{0}", string.Join("",wrongLettersSet));
+    }
+
+    //Задание 3
+    private static void LettersMatches(string inString)
+    {
+        // Множество всех символов
+        var allLettersSet = new HashSet<char>(inString.ToCharArray());
+
+        // Цикл вывода символв и кол-ва их вхождений в строку
+        Console.WriteLine("Символ : Кол-во вхождений");
+        foreach (var letter in allLettersSet)
         {
-            var matchCount = new Regex(wrongLetter.ToString()).Matches(inString).Count;
-            Console.WriteLine("{0} : {1}", wrongLetter, matchCount);
+            var letterMatches = new Regex(letter.ToString()).Matches(inString).Count();
+            Console.WriteLine("{0} : {1}", letter, letterMatches);
         }
     }
 }
