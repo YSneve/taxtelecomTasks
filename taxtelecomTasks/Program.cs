@@ -81,7 +81,7 @@ internal class Program
 
         Console.WriteLine("Ошибка! Введены не подходящие символы." +
                           "\nСледующие, из введенных символов, не являются подходящими:" +
-                          "\n{0}", string.Join("",wrongLettersSet));
+                          "\n{0}", new string(wrongLettersSet.ToArray()));
     }
 
     //Задание 3
@@ -94,6 +94,8 @@ internal class Program
         Console.WriteLine("Символ : Кол-во вхождений");
         foreach (var letter in allLettersSet)
         {
+            // Создаём регулярное выражение по символу
+            // и получем кол-во вхождений этого символа в строку
             var letterMatches = new Regex(letter.ToString()).Matches(inString).Count();
             Console.WriteLine("{0} : {1}", letter, letterMatches);
         }
