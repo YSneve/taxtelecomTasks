@@ -98,7 +98,7 @@ internal class Program
 
     private static string GetLongestSubString(string inString) 
     {
-        var vowelStartEnd = new Regex(@"[aeiouy].*[aeiouy]");
+        var vowelStartEnd = new Regex(@"[aeiouy](.*[aeiouy])?");
 
         var longestString = vowelStartEnd.Match(inString).Value;
         return longestString;
