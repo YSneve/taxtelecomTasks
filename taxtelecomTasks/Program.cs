@@ -14,6 +14,7 @@ internal class Program
 
         if (IsAllLower(inputStr))
         {
+        
             var processedString = FirstTaskReverse(inputStr);
             var longestString = GetLongestSubString(processedString);
             var sortedString = StringSort(processedString);
@@ -100,11 +101,11 @@ internal class Program
             Console.WriteLine("{0} : {1}", letter, letterMatches);
         }
     }
-
+    
     // Задание 4
     private static string GetLongestSubString(string inString) 
     {
-        var vowelStartEnd = new Regex(@"[aeiouy].*[aeiouy]");
+        var vowelStartEnd = new Regex(@"[aeiouy](.*[aeiouy])?");
 
         return vowelStartEnd.Match(inString).Value;
     }
