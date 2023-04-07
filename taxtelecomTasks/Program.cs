@@ -20,6 +20,7 @@ internal class Program
             Console.WriteLine("Результат: {0}\n" +
                 "Самая длинная подстрока: {1}\n", processedString, longestString);
 
+
             LettersMatches(processedString);
         }
         else
@@ -95,7 +96,8 @@ internal class Program
             Console.WriteLine("{0} : {1}", letter, letterMatches);
         }
     }
-
+    
+    //Задание 4
     private static string GetLongestSubString(string inString) 
     {
         var vowelStartEnd = new Regex(@"[aeiouy](.*[aeiouy])?");
