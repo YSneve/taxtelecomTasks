@@ -17,18 +17,21 @@ internal class Program
             var processedString = FirstTaskReverse(inputStr);
             var longestString = GetLongestSubString(processedString);
             var sortedString = StringSort(processedString);
+            var deletedCharString = delRandChar(processedString);
 
             Console.WriteLine("Результат: {0}\n", processedString);
 
             WriteLettersMatches(processedString);
 
             Console.WriteLine("Самая длинная подстрока: {0}\n" +
-                "Отсортированная обработанная строка: {1}",  longestString, sortedString);   
+                "Отсортированная обработанная строка: {1}\n" +
+                "Строка, в которой удалён символ на {2} позиции: {3}",  longestString, sortedString, deletedCharString.Item2, deletedCharString.Item1);   
         }
         else
         {
             WriteErrors(inputStr);
         }
+        
     }
     // Задание 1
     private static string FirstTaskReverse(string userString)
@@ -104,7 +107,7 @@ internal class Program
     // Задание 4
     private static string GetLongestSubString(string inString) 
     {
-        var vowelStartEnd = new Regex(@"[aeiouy].*[aeiouy]");
+        var vowelStartEnd = new Regex(@"[aeiouy](.*[aeiouy])?");
 
         return vowelStartEnd.Match(inString).Value;
     }
@@ -127,6 +130,46 @@ internal class Program
             default:
                 return "Ошибка выбора сортировки!";
 
+        }
+    }
+
+    // Задание 6
+    private static (string, int) delRandChar(string inString)
+    {
+        // Запрашиваем случайное число
+        int delIndex = getRandNum(inString.Length);
+
+        // Удаляем 1 элемент начиная с delIndex позиции и возвращаем полученную строку
+        return (inString.Remove(delIndex, 1), delIndex);
+    }
+
+    
+
+    private static int getRandNum(int max)
+    {
+        // Определяем клиент
+        var httpClient = new HttpClient();
+
+        // Делаем попытку запроса на сайт randomapi
+        try
+        {
+            // Ссылка с запросом
+            // Указываем максимальное число на 1 меньше т.к Api возвращает случайное число до max включительно
+            var requestString = string.Format("http://www.randomnumberapi.com/api/v1.0/random?min=0&max={0}", max - 1);
+
+            // Получаем результат
+            var result = httpClient.GetStringAsync(requestString).Result[1];
+
+            // Конвертация в int
+            return result - '0';
+        }
+        // При отсутствии соединения с Api
+        catch (Exception ex)
+        {
+            Console.WriteLine("В ходе выполнения запроса возникла следующая ошибка: {0}", ex.Message);
+
+            // Указываем max как максимальное число т.к Random возвращает число до max не включая
+            return new Random().Next(max);
         }
     }
 }
