@@ -26,6 +26,7 @@ internal class Program
             Console.WriteLine("Самая длинная подстрока: {0}\n" +
                 "Отсортированная обработанная строка: {1}\n" +
                 "Строка, в которой удалён символ на {2} позиции: {3}",  longestString, sortedString, deletedCharString.Item2, deletedCharString.Item1);   
+
         }
         else
         {
@@ -141,9 +142,7 @@ internal class Program
 
         // Удаляем 1 элемент начиная с delIndex позиции и возвращаем полученную строку
         return (inString.Remove(delIndex, 1), delIndex);
-    }
-
-    
+    }  
 
     private static int getRandNum(int max)
     {
