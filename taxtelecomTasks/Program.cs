@@ -14,14 +14,17 @@ internal class Program
 
         if (IsAllLower(inputStr))
         {
+        
             var processedString = FirstTaskReverse(inputStr);
             var longestString = GetLongestSubString(processedString);
+            var sortedString = StringSort(processedString);
 
-            Console.WriteLine("Результат: {0}\n" +
-                "Самая длинная подстрока: {1}\n", processedString, longestString);
+            Console.WriteLine("Результат: {0}\n", processedString);
 
+            WriteLettersMatches(processedString);
 
-            LettersMatches(processedString);
+            Console.WriteLine("Самая длинная подстрока: {0}\n" +
+                "Отсортированная обработанная строка: {1}",  longestString, sortedString);   
         }
         else
         {
@@ -79,11 +82,11 @@ internal class Program
 
         Console.WriteLine("Ошибка! Введены не подходящие символы." +
                           "\nСледующие, из введенных символов, не являются подходящими:" +
-                          "\n{0}", string.Join("",wrongLettersSet));
+                          "\n{0}", new string(wrongLettersSet.ToArray()));
     }
 
     //Задание 3
-    private static void LettersMatches(string inString)
+    private static void WriteLettersMatches(string inString)
     {
         // Множество всех символов
         var allLettersSet = new HashSet<char>(inString.ToCharArray());
@@ -92,17 +95,39 @@ internal class Program
         Console.WriteLine("Символ : Кол-во вхождений");
         foreach (var letter in allLettersSet)
         {
+            // Создаём регулярное выражение по символу
+            // и получем кол-во вхождений этого символа в строку
             var letterMatches = new Regex(letter.ToString()).Matches(inString).Count();
             Console.WriteLine("{0} : {1}", letter, letterMatches);
         }
     }
     
-    //Задание 4
+    // Задание 4
     private static string GetLongestSubString(string inString) 
     {
         var vowelStartEnd = new Regex(@"[aeiouy](.*[aeiouy])?");
 
-        var longestString = vowelStartEnd.Match(inString).Value;
-        return longestString;
+        return vowelStartEnd.Match(inString).Value;
+    }
+
+    // Задание 5
+    private static string StringSort(string inString)
+    {
+        Console.WriteLine("1 - QuickSort\n" +
+            "2 - TreeSort\n" +
+            "Выберите сортировку: ");
+
+        switch (Console.ReadLine())
+        {
+            case "1":
+                return QuickSort.SortString(inString);
+
+            case "2":
+                return TreeSort.SortString(inString);
+
+            default:
+                return "Ошибка выбора сортировки!";
+
+        }
     }
 }
