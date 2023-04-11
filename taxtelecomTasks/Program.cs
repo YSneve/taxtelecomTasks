@@ -14,18 +14,22 @@ internal class Program
 
         if (IsAllLower(inputStr))
         {
+        
             var processedString = FirstTaskReverse(inputStr);
             var longestString = GetLongestSubString(processedString);
             var sortedString = StringSort(processedString);
             var deletedCharString = delRandChar(processedString);
 
+
             Console.WriteLine("Результат: {0}\n", processedString);
 
             WriteLettersMatches(processedString);
 
+
             Console.WriteLine("Самая длинная подстрока: {0}\n" +
                 "Отсортированная обработанная строка: {1}\n" +
                 "Строка, в которой удалён символ на {2} позиции: {3}",  longestString, sortedString, deletedCharString.Item2, deletedCharString.Item1);   
+
 
         }
         else
