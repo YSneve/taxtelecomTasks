@@ -65,4 +65,9 @@ public class StringProcessor
 
         return vowelStartEnd.Match(inString).Value;
     }
+
+    public static bool isBlackListed(string[] blackList, string inString)
+    {
+        return blackList.Contains(inString);
+    }
 }
