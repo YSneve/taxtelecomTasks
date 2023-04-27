@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace taxtelecomTasks
+namespace taxTelecomTasks.Core
 {
-    internal static class TreeSort
+    public static class TreeSort
     {
         public class TreeNode
         {
@@ -87,4 +87,4 @@ namespace taxtelecomTasks
             return new string(treeNode.Transform());
         }
     }
-    }
+}
