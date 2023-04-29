@@ -1,9 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.0.31912.275
+VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "taxtelecomTasks", "taxtelecomTasks\taxtelecomTasks.csproj", "{B74E5C82-4814-4E64-95FD-477E9B1ECF22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "taxTelecomTasks.WebApi", "taxTelecomTasks.WebApi\taxTelecomTasks.WebApi.csproj", "{ED9E749E-00B6-4070-B161-318FC140771C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "taxTelecomTasks.Core", "taxTelecomTasks.Core\taxTelecomTasks.Core.csproj", "{F5854202-4A05-46F6-A649-727540569008}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "taxTelecomTasks.ConsoleApp", "taxTelecomTasks.ConsoleApp\taxTelecomTasks.ConsoleApp.csproj", "{88CD4038-4B6D-4447-B1F9-8D6664340B47}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{45D3D06B-3B3B-400B-BD80-7535B3B6FFDD}"
+	ProjectSection(SolutionItems) = preProject
+		taxTelecomTasks\App.config = taxTelecomTasks\App.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "taxTelecomTasks.Tests", "taxTelecomTasks.Tests\taxTelecomTasks.Tests.csproj", "{ECCBD1D0-08A5-4FEE-BA83-04E845C8F05D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +22,27 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B74E5C82-4814-4E64-95FD-477E9B1ECF22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B74E5C82-4814-4E64-95FD-477E9B1ECF22}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B74E5C82-4814-4E64-95FD-477E9B1ECF22}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B74E5C82-4814-4E64-95FD-477E9B1ECF22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED9E749E-00B6-4070-B161-318FC140771C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED9E749E-00B6-4070-B161-318FC140771C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED9E749E-00B6-4070-B161-318FC140771C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED9E749E-00B6-4070-B161-318FC140771C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5854202-4A05-46F6-A649-727540569008}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5854202-4A05-46F6-A649-727540569008}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5854202-4A05-46F6-A649-727540569008}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5854202-4A05-46F6-A649-727540569008}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88CD4038-4B6D-4447-B1F9-8D6664340B47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88CD4038-4B6D-4447-B1F9-8D6664340B47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88CD4038-4B6D-4447-B1F9-8D6664340B47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88CD4038-4B6D-4447-B1F9-8D6664340B47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECCBD1D0-08A5-4FEE-BA83-04E845C8F05D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECCBD1D0-08A5-4FEE-BA83-04E845C8F05D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECCBD1D0-08A5-4FEE-BA83-04E845C8F05D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECCBD1D0-08A5-4FEE-BA83-04E845C8F05D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {F1700E51-BE77-46E5-9A73-8303D5B461ED}
+		SolutionGuid = {ECFCD864-70C2-4B5B-87F0-726FB78AAF41}
 	EndGlobalSection
 EndGlobal
