@@ -4,16 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace taxtelecomTasks
+namespace taxTelecomTasks.Core
 {
-    internal static class QuickSort
+    public static class QuickSort
     {
         // Метод для обмена элементов массива
         static void Swap(ref char x, ref char y)
         {
-            var t = x;
-            x = y;
-            y = t;
+            (x, y) = (y, x);
         }
 
         // Метод возвращающий индекс опорного элемента
@@ -51,7 +49,7 @@ namespace taxtelecomTasks
 
         public static string SortString(string array)
         {
-            return  new string(Sort(array.ToCharArray(), 0, array.Length - 1));
+            return new string(Sort(array.ToCharArray(), 0, array.Length - 1));
         }
     }
 }
