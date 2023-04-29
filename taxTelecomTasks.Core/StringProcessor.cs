@@ -4,6 +4,7 @@ namespace taxTelecomTasks.Core;
 
 public class StringProcessor
 {
+    // Задание 1
     public static string ReverseString(string userString)
     {
 
@@ -12,8 +13,12 @@ public class StringProcessor
         // Функция для нечетного кол-ва символов в строке
         string oddCase(string toReverseStr)
         {
-            var firstHalf = ReverseSubString(toReverseStr[..(toReverseStr.Length / 2)]); // Развернутая первая половина входной строки
-            var secondHalf = ReverseSubString(toReverseStr[(toReverseStr.Length / 2)..]); // Развернутая вторая половина входной строки
+            var firstHalf =
+                ReverseSubString(
+                    toReverseStr[..(toReverseStr.Length / 2)]); // Развернутая первая половина входной строки
+            var secondHalf =
+                ReverseSubString(
+                    toReverseStr[(toReverseStr.Length / 2)..]); // Развернутая вторая половина входной строки
 
             return firstHalf + secondHalf;
         }
@@ -35,7 +40,7 @@ public class StringProcessor
         //Регулярное выражение, проверяющее на то, что строка от начала и до конца
         //является набором символов от a до z 
         var lowLetExpr = new Regex(@"(^[a-z]*$)");
-        invalidChars = lowLetExpr.Replace(checkString, "");
+        invalidChars = new Regex(@"([a-z]*)").Replace(checkString, "");
         return lowLetExpr.IsMatch(checkString);
     }
 
@@ -55,6 +60,7 @@ public class StringProcessor
             var letterMatches = new Regex(letter.ToString()).Matches(inString).Count();
             matchesDictionary.Add(letter, letterMatches);
         }
+
         return matchesDictionary;
     }
 
@@ -70,4 +76,5 @@ public class StringProcessor
     {
         return blackList.Contains(inString);
     }
+
 }
