@@ -1,9 +1,8 @@
-﻿using System.Reflection.Metadata.Ecma335;
-using Microsoft.AspNetCore.Mvc;
-
+﻿using Microsoft.AspNetCore.Mvc;
 using taxTelecomTasks.Core;
-namespace taxTelecomTasks.WebApi.Controllers;
 
+
+namespace taxTelecomTasks.WebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -12,58 +11,80 @@ public class StringController : ControllerBase
     private readonly IConfiguration _configuration;
 
     private readonly HttpClient _httpClient;
+    
+    private static SemaphoreSlim Semaphore;
 
+    public static void initSemaphore(int limit)
+    {
+        Semaphore = new SemaphoreSlim(limit);
+    }
+    
     public StringController(HttpClient httpClient, IConfiguration configuration)
     {
         _httpClient = httpClient;
         _configuration = configuration;
     }
 
+    
     [HttpGet]
     public async Task<IActionResult> ProceedString(string inputString, [FromQuery] SortingModel sortModel)
     {
-        var blackList = _configuration.GetSection("Settings:BlackList").Get<string[]>();
-        
-
-        if (StringProcessor.isBlackListed(blackList, inputString))
-            return BadRequest(new
-            {
-                message = "String is in blacklist"
-            });
-
-        if (!StringProcessor.IsAllLower(inputString, out var invalidChars))
+        if (Semaphore.CurrentCount == 0)
         {
-            return BadRequest(new
+            return StatusCode(503, "Service Unavailable");
+        }
+        
+        await Semaphore.WaitAsync();
+        try
+        {
+            var blackList = _configuration.GetSection("Settings:BlackList").Get<string[]>();
+        
+            if (StringProcessor.isBlackListed(blackList, inputString))
+                return BadRequest(new
+                {
+                    message = "String is in blacklist"
+                });
+
+            if (!StringProcessor.IsAllLower(inputString, out var invalidChars))
             {
-                message = "Input contains unsupported characters",
-                invalidCharacters = invalidChars.Select(x => x)
+                return BadRequest(new
+                {
+                    message = "Input contains unsupported characters",
+                    invalidCharacters = invalidChars.Select(x => x)
+                });
+            }
+
+            var reversedString = StringProcessor.ReverseString(inputString);
+
+            var sortedProceededString = sortModel.Sorting switch
+            {
+                SortingEnum.Quick => QuickSort.SortString(reversedString),
+                SortingEnum.Tree => TreeSort.SortString(reversedString),
+                _ => string.Empty
+            };
+
+            var stringWithRemovedIndex = await DelRandChar(reversedString);
+
+            //_semaphore.Release();
+            return Ok(new
+            {
+                proceededString = reversedString,
+
+                countCharacters = StringProcessor.GetLetterMatches(reversedString),
+
+                longestVowelSubstring = StringProcessor.GetLongestSubString(reversedString),
+
+                sortedString = sortedProceededString,
+
+                stringWithRemovedChar = stringWithRemovedIndex.Item1,
+
+                removalIndex = stringWithRemovedIndex.Item2
             });
         }
-
-        var reversedString = StringProcessor.ReverseString(inputString);
-
-        var sortedProceededString = sortModel.Sorting switch
+        finally
         {
-            SortingEnum.Quick => QuickSort.SortString(reversedString),
-            SortingEnum.Tree => TreeSort.SortString(reversedString),
-            _ => string.Empty
-        };
-
-        var stringWithRemovedIndex = await DelRandChar(reversedString);
-        return Ok(new
-        {
-            proceededString = reversedString,
-
-            countCharacters = StringProcessor.GetLetterMatches(reversedString),
-
-            longestVowelSubstring = StringProcessor.GetLongestSubString(reversedString),
-
-            sortedString = sortedProceededString,
-
-            stringWithRemovedChar = stringWithRemovedIndex.Item1,
-            
-            removalIndex = stringWithRemovedIndex.Item2
-        });
+            Semaphore.Release();
+        }
     }
 
     
